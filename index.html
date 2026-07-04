@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ontap — Log beers. See who's out.</title>
+<meta name="description" content="Log a beer in one tap from your home screen, see your month in beers, and find out who's already out tonight.">
+
+<!-- Open Graph (link previews in group chats / socials) -->
+<meta property="og:title" content="ontap — Log beers. See who's out.">
+<meta property="og:description" content="One tap logs a beer and where you are. See who's already out on a shared map.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://getontap.net">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --amber:      #FBB615;
+    --amber-deep: #E8890B;
+    --brown:      #3D1E00;
+    --brown-soft: #6B4A2B;
+    --cream:      #FFF8EC;
+    --foam:       #FFFDF7;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Fredoka', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: var(--amber);
+    color: var(--brown);
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  .wrap { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+
+  /* ---------- Ambient bubbles ---------- */
+  .bubble {
+    position: absolute;
+    border-radius: 50%;
+    background: var(--foam);
+    opacity: 0.13;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* ---------- Hero ---------- */
+  header {
+    position: relative;
+    text-align: center;
+    padding: 72px 24px 0;
+    overflow: hidden;
+  }
+
+  .logo {
+    font-size: clamp(56px, 12vw, 128px);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--cream);
+    text-shadow: 0 4px 0 var(--brown);
+    position: relative;
+    z-index: 2;
+    line-height: 1;
+  }
+
+  .tagline {
+    font-size: clamp(20px, 4vw, 32px);
+    font-weight: 600;
+    color: var(--brown);
+    margin-top: 20px;
+    position: relative;
+    z-index: 2;
+  }
+
+  .subline {
+    font-size: clamp(16px, 2.4vw, 20px);
+    font-weight: 500;
+    color: var(--brown-soft);
+    margin: 16px auto 0;
+    max-width: 520px;
+    line-height: 1.5;
+    position: relative;
+    z-index: 2;
+  }
+
+  /* ---------- App Store button ---------- */
+  .cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: 36px;
+    padding: 16px 30px;
+    background: var(--brown);
+    color: var(--cream);
+    text-decoration: none;
+    border-radius: 16px;
+    font-size: 19px;
+    font-weight: 600;
+    box-shadow: 0 5px 0 #26130025;
+    transition: transform 0.12s ease, box-shadow 0.12s ease;
+    position: relative;
+    z-index: 2;
+  }
+  .cta:hover { transform: translateY(-2px); box-shadow: 0 7px 0 #26130025; }
+  .cta:active { transform: translateY(1px); box-shadow: 0 3px 0 #26130025; }
+  .cta svg { width: 26px; height: 26px; fill: var(--cream); }
+
+  .cta.disabled {
+    background: #d89a10;
+    color: #fff8ec;
+    cursor: default;
+    box-shadow: 0 5px 0 #26130018;
+  }
+  .cta.disabled:hover { transform: none; box-shadow: 0 5px 0 #26130018; }
+
+  .comingsoon {
+    display: block;
+    margin-top: 14px;
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--brown-soft);
+    position: relative;
+    z-index: 2;
+  }
+
+  /* ---------- Foam divider (signature) ---------- */
+  .foam {
+    position: relative;
+    z-index: 1;
+    margin-top: 64px;
+    height: 40px;
+    background:
+      radial-gradient(circle at 20px -6px, var(--foam) 20px, transparent 21px),
+      radial-gradient(circle at 60px -2px, var(--foam) 24px, transparent 25px),
+      radial-gradient(circle at 100px -8px, var(--foam) 22px, transparent 23px);
+    background-size: 80px 40px;
+    background-repeat: repeat-x;
+    background-color: var(--foam);
+    margin-bottom: 0;
+  }
+  .below-foam { background: var(--foam); }
+
+  /* ---------- Phones in hero ---------- */
+  .phones {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    gap: clamp(-40px, -4vw, 20px);
+    margin-top: 48px;
+    position: relative;
+    z-index: 2;
+  }
+  .phones img {
+    width: clamp(150px, 34vw, 250px);
+    border-radius: 28px;
+    box-shadow: 0 20px 40px #3d1e0033;
+  }
+  .phones img:first-child  { transform: rotate(-6deg) translateY(10px); }
+  .phones img:last-child   { transform: rotate(6deg)  translateY(10px); margin-left: -30px; }
+
+  /* ---------- Features ---------- */
+  section.features {
+    background: var(--foam);
+    padding: 40px 0 80px;
+  }
+  .feature-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    margin-top: 20px;
+  }
+  .card {
+    background: var(--cream);
+    border: 2.5px solid var(--brown);
+    border-radius: 20px;
+    padding: 28px 24px;
+    box-shadow: 4px 4px 0 var(--brown);
+  }
+  .card .icon {
+    font-size: 34px;
+    line-height: 1;
+    display: block;
+    margin-bottom: 14px;
+  }
+  .card h3 {
+    font-size: 21px;
+    font-weight: 700;
+    margin-bottom: 8px;
+    color: var(--brown);
+  }
+  .card p {
+    font-size: 15.5px;
+    font-weight: 500;
+    line-height: 1.55;
+    color: var(--brown-soft);
+  }
+
+  /* ---------- Last Call showcase ---------- */
+  .showcase {
+    display: flex;
+    align-items: center;
+    gap: 48px;
+    margin-top: 72px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .showcase img {
+    width: clamp(200px, 40vw, 280px);
+    border-radius: 32px;
+    box-shadow: 0 20px 40px #3d1e0033;
+  }
+  .showcase .copy { max-width: 380px; }
+  .showcase h2 {
+    font-size: clamp(28px, 4vw, 40px);
+    font-weight: 700;
+    line-height: 1.1;
+    margin-bottom: 16px;
+  }
+  .showcase p {
+    font-size: 17px;
+    font-weight: 500;
+    line-height: 1.6;
+    color: var(--brown-soft);
+  }
+
+  /* ---------- Footer ---------- */
+  footer {
+    background: var(--brown);
+    color: var(--cream);
+    text-align: center;
+    padding: 48px 24px;
+  }
+  footer .flogo {
+    font-size: 36px;
+    font-weight: 700;
+    color: var(--amber);
+    margin-bottom: 12px;
+  }
+  footer p { font-size: 14.5px; font-weight: 500; opacity: 0.85; line-height: 1.7; }
+  footer a { color: var(--amber); text-decoration: none; }
+  footer a:hover { text-decoration: underline; }
+  .footer-links { margin-top: 14px; }
+  .footer-links a { margin: 0 10px; }
+
+  h2.section-title {
+    text-align: center;
+    font-size: clamp(26px, 4vw, 38px);
+    font-weight: 700;
+    padding-top: 24px;
+  }
+
+  @media (max-width: 720px) {
+    .feature-grid { grid-template-columns: 1fr; }
+    .phones img:last-child { margin-left: -20px; }
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .cta { will-change: transform; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ===== HERO ===== -->
+<header>
+  <span class="bubble" style="width:90px;height:90px;top:60px;left:8%;"></span>
+  <span class="bubble" style="width:50px;height:50px;top:140px;left:82%;"></span>
+  <span class="bubble" style="width:120px;height:120px;top:220px;left:74%;opacity:0.09;"></span>
+  <span class="bubble" style="width:40px;height:40px;top:100px;left:24%;"></span>
+  <span class="bubble" style="width:64px;height:64px;top:280px;left:12%;opacity:0.10;"></span>
+
+  <div class="wrap">
+    <div class="logo">ontap</div>
+    <div class="tagline">Log beers. See who's out.</div>
+    <p class="subline">One tap on your home screen logs a beer and the spot you're at. See who's already out on a shared map — and get your month in beers, wrapped.</p>
+
+    <!-- When live: swap href to the App Store URL and remove .disabled + the comingsoon note -->
+    <a class="cta disabled" href="#" aria-disabled="true">
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17.05 12.04c-.02-2.3 1.88-3.4 1.96-3.46-1.07-1.56-2.73-1.78-3.32-1.8-1.41-.14-2.76.83-3.48.83-.72 0-1.82-.81-3-.79-1.54.02-2.96.9-3.75 2.28-1.6 2.78-.41 6.89 1.15 9.14.76 1.1 1.67 2.34 2.86 2.29 1.15-.05 1.58-.74 2.97-.74 1.39 0 1.78.74 3 .72 1.24-.02 2.02-1.12 2.78-2.23.87-1.28 1.23-2.52 1.25-2.58-.03-.01-2.4-.92-2.42-3.65zM14.77 5.3c.64-.78 1.07-1.86.95-2.94-.92.04-2.03.61-2.69 1.38-.59.69-1.11 1.79-.97 2.85 1.02.08 2.07-.52 2.71-1.29z"/></svg>
+      Coming to the App Store
+    </a>
+    <span class="comingsoon">Launching soon on iPhone.</span>
+
+    <div class="phones">
+      <img src="ss_widget.png" alt="ontap home screen widget logging a beer in one tap">
+      <img src="ss_friends.png" alt="ontap friends map showing who's out">
+    </div>
+  </div>
+
+  <div class="foam"></div>
+</header>
+
+<!-- ===== FEATURES ===== -->
+<section class="features below-foam">
+  <div class="wrap">
+    <h2 class="section-title">Made for nights out, not spreadsheets.</h2>
+    <div class="feature-grid">
+      <div class="card">
+        <span class="icon">🍺</span>
+        <h3>One tap to log</h3>
+        <p>A home screen and lock screen widget logs a beer — with the venue you're at — in a single tap. No opening the app.</p>
+      </div>
+      <div class="card">
+        <span class="icon">📍</span>
+        <h3>See who's out</h3>
+        <p>Add your mates and drop onto a shared map that shows who's already out and where. Skip the group chat, just go.</p>
+      </div>
+      <div class="card">
+        <span class="icon">✨</span>
+        <h3>Last Call</h3>
+        <p>Every month, your beers, your spots and your nights out — wrapped up like a recap worth screenshotting.</p>
+      </div>
+    </div>
+
+    <!-- Last Call showcase -->
+    <div class="showcase">
+      <img src="ss_lastcall.png" alt="ontap Last Call monthly recap">
+      <div class="copy">
+        <h2>Your month, wrapped.</h2>
+        <p>ontap keeps a quiet tally of where you drink and who you're with, then hands it back at the end of the month — your top spots, your go-to night, your map filling up over time. You didn't keep a diary. You just tapped a button.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer>
+  <div class="flogo">ontap</div>
+  <p>Log beers. See who's out.<br>For beer lovers 18 and older.</p>
+  <div class="footer-links">
+    <a href="https://lucapreston.github.io/ontap-legal/privacy/">Privacy</a>
+    <a href="https://lucapreston.github.io/ontap-legal/terms/">Terms</a>
+    <a href="mailto:luca@getontap.net">Contact</a>
+  </div>
+  <p style="margin-top:18px;opacity:0.6;font-size:13px;">© 2026 ontap · Montréal</p>
+</footer>
+
+</body>
+</html>
