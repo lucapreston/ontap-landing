@@ -54,19 +54,18 @@
   header {
     position: relative;
     text-align: center;
-    padding: 72px 24px 0;
+    padding: 32px 24px 0;
     overflow: hidden;
   }
 
-  .logo {
-    font-size: clamp(56px, 12vw, 128px);
-    font-weight: 700;
-    letter-spacing: -0.02em;
-    color: var(--cream);
-    text-shadow: 0 4px 0 var(--brown);
+  .logo-img {
+    width: clamp(240px, 44vw, 440px);
+    height: auto;
+    display: block;
+    margin: -40px auto -50px;
     position: relative;
     z-index: 2;
-    line-height: 1;
+    filter: drop-shadow(0 6px 10px #3d1e0022);
   }
 
   .tagline {
@@ -276,16 +275,16 @@
   <span class="bubble" style="width:64px;height:64px;top:280px;left:12%;opacity:0.10;"></span>
 
   <div class="wrap">
-    <div class="logo">ontap</div>
+    <img class="logo-img" src="logo.png" alt="ontap">
     <div class="tagline">Log beers. See who's out.</div>
     <p class="subline">One tap on your home screen logs a beer and the spot you're at. See who's already out on a shared map — and get your month in beers, wrapped.</p>
 
-    <!-- When live: swap href to the App Store URL and remove .disabled + the comingsoon note -->
-    <a class="cta disabled" href="#" aria-disabled="true">
+    <!-- TODO: replace href="#" with the real App Store URL once the app is approved -->
+    <a class="cta" href="#">
       <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17.05 12.04c-.02-2.3 1.88-3.4 1.96-3.46-1.07-1.56-2.73-1.78-3.32-1.8-1.41-.14-2.76.83-3.48.83-.72 0-1.82-.81-3-.79-1.54.02-2.96.9-3.75 2.28-1.6 2.78-.41 6.89 1.15 9.14.76 1.1 1.67 2.34 2.86 2.29 1.15-.05 1.58-.74 2.97-.74 1.39 0 1.78.74 3 .72 1.24-.02 2.02-1.12 2.78-2.23.87-1.28 1.23-2.52 1.25-2.58-.03-.01-2.4-.92-2.42-3.65zM14.77 5.3c.64-.78 1.07-1.86.95-2.94-.92.04-2.03.61-2.69 1.38-.59.69-1.11 1.79-.97 2.85 1.02.08 2.07-.52 2.71-1.29z"/></svg>
-      Coming to the App Store
+      Download on the App Store
     </a>
-    <span class="comingsoon">Launching soon on iPhone.</span>
+    <span class="comingsoon">Free on iPhone · 18+</span>
 
     <div class="phones">
       <img src="ss_widget.png" alt="ontap home screen widget logging a beer in one tap">
