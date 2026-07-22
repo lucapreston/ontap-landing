@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ontap</title>
+<meta name="apple-itunes-app" content="app-id=6788189977">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --amber:      #FBB615;
+    --amber-deep: #E8890B;
+    --brown:      #3D1E00;
+    --brown-soft: #6B4A2B;
+    --cream:      #FFF8EC;
+    --foam:       #FFFDF7;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Fredoka', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: var(--amber);
+    color: var(--brown);
+    -webkit-font-smoothing: antialiased;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .bubble {
+    position: absolute;
+    border-radius: 50%;
+    background: var(--foam);
+    opacity: 0.13;
+    pointer-events: none;
+  }
+
+  .card {
+    background: var(--cream);
+    border: 2.5px solid var(--brown);
+    border-radius: 24px;
+    padding: 40px 36px;
+    box-shadow: 6px 6px 0 var(--brown);
+    max-width: 440px;
+    width: 100%;
+    text-align: center;
+    position: relative;
+    z-index: 2;
+  }
+
+  .wordmark {
+    font-size: 30px;
+    font-weight: 700;
+    color: var(--brown);
+    margin-bottom: 24px;
+  }
+
+  .emoji {
+    font-size: 52px;
+    line-height: 1;
+    display: block;
+    margin-bottom: 20px;
+  }
+
+  h1 {
+    font-size: 26px;
+    font-weight: 700;
+    color: var(--brown);
+    margin-bottom: 14px;
+    line-height: 1.2;
+  }
+
+  p {
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--brown-soft);
+    line-height: 1.6;
+    margin-bottom: 28px;
+  }
+
+  .cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 15px 28px;
+    background: var(--brown);
+    color: var(--cream);
+    text-decoration: none;
+    border-radius: 14px;
+    font-family: 'Fredoka', sans-serif;
+    font-size: 18px;
+    font-weight: 600;
+    box-shadow: 0 4px 0 #26130025;
+    transition: transform 0.12s ease, box-shadow 0.12s ease;
+  }
+  .cta:hover  { transform: translateY(-2px); box-shadow: 0 6px 0 #26130025; }
+  .cta:active { transform: translateY(1px);  box-shadow: 0 2px 0 #26130025; }
+  .cta svg { width: 24px; height: 24px; fill: var(--cream); flex-shrink: 0; }
+
+  .back {
+    display: inline-block;
+    margin-top: 16px;
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--brown-soft);
+    text-decoration: none;
+  }
+  .back:hover { text-decoration: underline; }
+
+  .sub {
+    display: block;
+    margin-top: 14px;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--brown-soft);
+  }
+</style>
+</head>
+<body>
+
+<span class="bubble" style="width:90px;height:90px;top:40px;left:6%;"></span>
+<span class="bubble" style="width:50px;height:50px;top:20px;left:80%;"></span>
+<span class="bubble" style="width:120px;height:120px;bottom:60px;left:70%;opacity:0.09;"></span>
+<span class="bubble" style="width:40px;height:40px;bottom:100px;left:10%;"></span>
+
+<div class="card" id="invite-card" style="display:none;">
+  <div class="wordmark">ontap</div>
+  <span class="emoji">🍻</span>
+  <h1>You've been invited to ontap</h1>
+  <p>ontap logs a beer in one tap from your home screen and puts you on a shared map so your mates can see who's already out tonight.</p>
+  <a class="cta" href="https://apps.apple.com/app/id6788189977">
+    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17.05 12.04c-.02-2.3 1.88-3.4 1.96-3.46-1.07-1.56-2.73-1.78-3.32-1.8-1.41-.14-2.76.83-3.48.83-.72 0-1.82-.81-3-.79-1.54.02-2.96.9-3.75 2.28-1.6 2.78-.41 6.89 1.15 9.14.76 1.1 1.67 2.34 2.86 2.29 1.15-.05 1.58-.74 2.97-.74 1.39 0 1.78.74 3 .72 1.24-.02 2.02-1.12 2.78-2.23.87-1.28 1.23-2.52 1.25-2.58-.03-.01-2.4-.92-2.42-3.65zM14.77 5.3c.64-.78 1.07-1.86.95-2.94-.92.04-2.03.61-2.69 1.38-.59.69-1.11 1.79-.97 2.85 1.02.08 2.07-.52 2.71-1.29z"/></svg>
+    Download on the App Store
+  </a>
+  <span class="sub">Free on iPhone · 18+</span>
+</div>
+
+<div class="card" id="notfound-card" style="display:none;">
+  <div class="wordmark">ontap</div>
+  <span class="emoji">🫙</span>
+  <h1>Nothing here</h1>
+  <p>That page doesn't exist — but the beer does.</p>
+  <a class="cta" href="/">Back to ontap</a>
+</div>
+
+<script>
+  var parts = window.location.pathname.replace(/^\/|\/$/g, '').split('/');
+  if (parts[0] === 'join' && parts[1]) {
+    document.getElementById('invite-card').style.display = 'block';
+  } else {
+    document.getElementById('notfound-card').style.display = 'block';
+  }
+</script>
+
+</body>
+</html>
