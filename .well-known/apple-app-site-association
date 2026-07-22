@@ -1,0 +1,11 @@
+{
+  "applinks": {
+    "apps": [],
+    "details": [
+      {
+        "appID": "P592938BZZ.com.lucapreston.ontap",
+        "paths": [ "/join/*" ]
+      }
+    ]
+  }
+}
