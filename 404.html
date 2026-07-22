@@ -156,6 +156,10 @@
 <script>
   var parts = window.location.pathname.replace(/^\/|\/$/g, '').split('/');
   if (parts[0] === 'join' && parts[1]) {
+    const code = window.location.pathname.split('/join/')[1];
+    if (code) {
+      navigator.clipboard.writeText("ontap-invite:" + code).catch(() => {});
+    }
     window.location.replace("https://apps.apple.com/app/apple-store/id6788189977?pt=129131724&ct=friendinvite&mt=8");
   } else {
     document.getElementById('notfound-card').style.display = 'block';
