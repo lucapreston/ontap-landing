@@ -136,11 +136,11 @@
 <div class="card" id="invite-card" style="display:none;">
   <div class="wordmark">ontap</div>
   <span class="emoji">🍻</span>
-  <h1>You've been invited to ontap</h1>
+  <h1 id="invite-title">You've been invited to ontap</h1>
   <p>ontap logs a beer in one tap from your home screen and puts you on a shared map so your mates can see who's already out tonight.</p>
-  <a class="cta" href="https://apps.apple.com/app/id6788189977">
+  <a class="cta" id="get-btn" href="https://apps.apple.com/app/apple-store/id6788189977?pt=129131724&ct=friendinvite&mt=8">
     <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17.05 12.04c-.02-2.3 1.88-3.4 1.96-3.46-1.07-1.56-2.73-1.78-3.32-1.8-1.41-.14-2.76.83-3.48.83-.72 0-1.82-.81-3-.79-1.54.02-2.96.9-3.75 2.28-1.6 2.78-.41 6.89 1.15 9.14.76 1.1 1.67 2.34 2.86 2.29 1.15-.05 1.58-.74 2.97-.74 1.39 0 1.78.74 3 .72 1.24-.02 2.02-1.12 2.78-2.23.87-1.28 1.23-2.52 1.25-2.58-.03-.01-2.4-.92-2.42-3.65zM14.77 5.3c.64-.78 1.07-1.86.95-2.94-.92.04-2.03.61-2.69 1.38-.59.69-1.11 1.79-.97 2.85 1.02.08 2.07-.52 2.71-1.29z"/></svg>
-    Download on the App Store
+    Get ontap 🍻
   </a>
   <span class="sub">Free on iPhone · 18+</span>
 </div>
@@ -154,16 +154,68 @@
 </div>
 
 <script>
-  var parts = window.location.pathname.replace(/^\/|\/$/g, '').split('/');
-  if (parts[0] === 'join' && parts[1]) {
-    const code = window.location.pathname.split('/join/')[1];
-    if (code) {
-      navigator.clipboard.writeText("ontap-invite:" + code).catch(() => {});
+  (function () {
+    var parts = window.location.pathname.replace(/^\/|\/$/g, '').split('/');
+    var isJoin = parts[0] === 'join' && parts[1];
+
+    if (!isJoin) {
+      document.getElementById('notfound-card').style.display = 'block';
+      return;
     }
-    window.location.replace("https://apps.apple.com/app/apple-store/id6788189977?pt=129131724&ct=friendinvite&mt=8");
-  } else {
-    document.getElementById('notfound-card').style.display = 'block';
-  }
+
+    var code = parts[1].trim().toLowerCase();
+    document.getElementById('invite-card').style.display = 'block';
+
+    // Personalize the title from the invite code (best-effort, non-blocking).
+    var SUPABASE_URL = "https://ghaqzruubggysfgvhoks.supabase.co";
+    var ANON_KEY = "sb_publishable_C0D39QPxypLkqmGamQz2SA_J0eQ1e6X";
+    fetch(SUPABASE_URL + "/rest/v1/rpc/resolve_invite_code", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "apikey": ANON_KEY,
+        "Authorization": "Bearer " + ANON_KEY
+      },
+      body: JSON.stringify({ p_code: code })
+    })
+    .then(function (r) { return r.json(); })
+    .then(function (rows) {
+      var row = Array.isArray(rows) ? rows[0] : rows;
+      if (row && row.valid && row.username) {
+        document.getElementById('invite-title').textContent =
+          "@" + row.username + " invited you to ontap";
+      }
+    })
+    .catch(function () { /* leave default title */ });
+
+    // The clipboard write MUST happen inside the tap handler — iOS Safari
+    // blocks clipboard writes without a user gesture. Write, then redirect.
+    var btn = document.getElementById('get-btn');
+    var storeURL = btn.getAttribute('href');
+    btn.addEventListener('click', function (e) {
+      e.preventDefault();
+      var payload = "ontap-invite:" + code;
+      function go() { window.location.href = storeURL; }
+      try {
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(payload).then(go, go);
+        } else {
+          // Fallback for older Safari: hidden textarea + execCommand.
+          var ta = document.createElement('textarea');
+          ta.value = payload;
+          ta.style.position = 'fixed';
+          ta.style.opacity = '0';
+          document.body.appendChild(ta);
+          ta.focus(); ta.select();
+          try { document.execCommand('copy'); } catch (err) {}
+          document.body.removeChild(ta);
+          go();
+        }
+      } catch (err) {
+        go();
+      }
+    });
+  })();
 </script>
 
 </body>
