@@ -1,23 +1,47 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta http-equiv="refresh" content="0; url=https://apps.apple.com/app/apple-store/id6788189977?pt=129131724&ct=sticker&mt=8">
-<script>
-  window.location.replace("https://apps.apple.com/app/apple-store/id6788189977?pt=129131724&ct=sticker&mt=8");
-</script>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="apple-itunes-app" content="app-id=6788189977">
+<meta name="theme-color" content="#F0A810">
+<title>Get ontap</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&display=swap');
+  * { box-sizing: border-box; margin: 0; }
+  html, body { height: 100%; }
+  body {
+    min-height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center;
+    padding: 40px 24px calc(32px + env(safe-area-inset-bottom));
+    background: #F0A810; color: #5C2E00; text-align: center;
+    font-family: Fredoka, -apple-system, system-ui, sans-serif; font-weight: 500;
+  }
+  img { width: 200px; max-width: 60%; height: auto; }
+  h1 { font-size: 26px; font-weight: 700; margin-top: 20px; }
+  p.sub { font-size: 16px; opacity: .8; margin-top: 6px; }
+  a.btn {
+    display: block; width: 100%; max-width: 340px; margin-top: 32px; padding: 17px 20px;
+    border-radius: 16px; background: #FBB615; border: 2px solid #5C2E00; box-shadow: 0 3px 0 #5C2E00;
+    color: #5C2E00; font-size: 19px; font-weight: 600; text-decoration: none;
+  }
+  a.btn:active { transform: translateY(2px); box-shadow: 0 1px 0 #5C2E00; }
+  p.help { font-size: 13px; opacity: .7; margin-top: 22px; max-width: 320px; line-height: 1.4; }
+</style>
 </head>
-<body style="font-family:-apple-system,sans-serif;text-align:center;padding:48px 24px;color:#3a2417;background:#f5e6c8">
-  <p style="font-size:20px">Taking you to the App Store 🍻</p>
-  <p style="font-size:16px;margin-top:24px">
-    <a href="https://apps.apple.com/app/apple-store/id6788189977?pt=129131724&ct=sticker&mt=8"
-       style="color:#c8781e;font-weight:bold;text-decoration:underline">
-       Tap here to open ontap in the App Store
-    </a>
-  </p>
-  <p style="font-size:13px;color:#8a7355;margin-top:32px">
-    Not working? Search "ontap" in the App Store
-  </p>
+<body>
+  <img src="/logo.png" alt="ontap">
+  <h1>one tap. beer logged.</h1>
+  <p class="sub">Log every pint. See where your mates are.</p>
+  <a class="btn" id="get" href="https://apps.apple.com/app/apple-store/id6788189977?pt=129131724&amp;ct=sticker&amp;mt=8">Get ontap on the App Store</a>
+  <p class="help" id="help">Not opening? Tap &bull;&bull;&bull; at the top and choose &ldquo;Open in external browser&rdquo;, or search &ldquo;ontap&rdquo; in the App Store.</p>
+<script>
+  // In-app browsers (Instagram, TikTok, Facebook, Snapchat...) block a page
+  // from sending you to the App Store on its own, which left a blank
+  // screen. They do allow it when the person taps, so there we show the
+  // button and wait. Everywhere else (Safari, Chrome) go straight there.
+  var inApp = /Instagram|FBAN|FBAV|FB_IAB|TikTok|musical_ly|BytedanceWebview|Snapchat|Twitter|LinkedInApp|Line\//i
+    .test(navigator.userAgent);
+  if (!inApp) window.location.replace("https://apps.apple.com/app/apple-store/id6788189977?pt=129131724&ct=sticker&mt=8");
+</script>
 </body>
 </html>
