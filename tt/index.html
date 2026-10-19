@@ -39,9 +39,29 @@
   // from sending you to the App Store on its own, which left a blank
   // screen. They do allow it when the person taps, so there we show the
   // button and wait. Everywhere else (Safari, Chrome) go straight there.
-  var inApp = /Instagram|FBAN|FBAV|FB_IAB|TikTok|musical_ly|BytedanceWebview|Snapchat|Twitter|LinkedInApp|Line\//i
-    .test(navigator.userAgent);
-  if (!inApp) window.location.replace("https://apps.apple.com/app/apple-store/id6788189977?pt=129131724&ct=tiktok&mt=8&ppid=5be80eff-fdf5-4ac2-8e0a-33ac5b416119");
+  var STORE = "https://apps.apple.com/app/apple-store/id6788189977?pt=129131724&ct=tiktok&mt=8&ppid=5be80eff-fdf5-4ac2-8e0a-33ac5b416119";
+  var ua = navigator.userAgent;
+  var inApp = /Instagram|FBAN|FBAV|FB_IAB|TikTok|musical_ly|BytedanceWebview|Snapchat|Twitter|LinkedInApp|Line\//i.test(ua);
+  var done = false;
+  function go() {
+    if (done) return;
+    done = true;
+    if (!inApp) window.location.replace(STORE);
+  }
+
+  // Count the scan (anonymous: which link, optional ?at= spot code, in-app
+  // browser or not, phone type). Never holds up the redirect for long.
+  try {
+    var spot = new URLSearchParams(window.location.search).get("at");
+    var device = /iPhone|iPad|iPod/.test(ua) ? "iphone" : /Android/.test(ua) ? "android" : "other";
+    fetch("https://ghaqzruubggysfgvhoks.supabase.co/rest/v1/rpc/log_link_scan", {
+      method: "POST",
+      keepalive: true,
+      headers: { "apikey": "sb_publishable_C0D39QPxypLkqmGamQz2SA_J0eQ1e6X", "Content-Type": "application/json" },
+      body: JSON.stringify({ p_link: "tt", p_spot: spot, p_in_app: inApp, p_device: device })
+    }).then(go, go);
+  } catch (e) { go(); }
+  setTimeout(go, 800);
 </script>
 </body>
 </html>
