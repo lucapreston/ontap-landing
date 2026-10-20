@@ -19,6 +19,8 @@ jobs:
         with:
           python-version: "3.12"
       - name: Build the site for today
+        env:
+          PYTHONDONTWRITEBYTECODE: "1"
         run: |
           cp published.txt /tmp/before.txt 2>/dev/null || touch /tmp/before.txt
           python3 src/build.py
