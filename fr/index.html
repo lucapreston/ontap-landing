@@ -310,6 +310,19 @@
   .faq summary::after { content: "+"; float: right; font-weight: 700; }
   .faq details[open] summary::after { content: "–"; }
   .faq details p { margin-top: 10px; font-size: 16px; font-weight: 500; line-height: 1.55; color: var(--brown-soft); }
+  .reviews { margin-top: 72px; }
+  .reviews h2 { text-align: center; font-size: clamp(26px, 4vw, 38px); font-weight: 700; }
+  .reviews .note { text-align: center; color: var(--brown-soft); font-size: 14px; margin-top: 6px; }
+  .review-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin-top: 22px; }
+  .review { background: var(--cream); border: 2.5px solid var(--brown); border-radius: 18px; padding: 18px; box-shadow: 4px 4px 0 var(--brown); }
+  .review .stars { color: #E8890B; letter-spacing: 2px; font-size: 16px; }
+  .review blockquote { margin: 8px 0 10px; font-size: 16px; line-height: 1.5; font-weight: 500; color: var(--brown); }
+  .review cite { font-style: normal; font-size: 13px; color: var(--brown-soft); font-weight: 600; }
+  .more { margin-top: 64px; text-align: center; }
+  .more h2 { font-size: clamp(22px, 3vw, 30px); }
+  .more .links { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-top: 14px; }
+  .more .links a { background: #fff; border: 2px solid var(--brown); border-radius: 999px; padding: 8px 14px; color: var(--brown); text-decoration: none; font-weight: 600; font-size: 15px; }
+  @media (max-width: 720px) { .review-grid { grid-template-columns: 1fr; } }
   .langs { margin-top: 14px; font-size: 14px; }
   .langs a { margin: 0 8px; }
   .langs .here { margin: 0 8px; opacity: 0.6; }
@@ -391,6 +404,25 @@
       </div>
     </div>
 
+    <div class="reviews">
+      <h2>Ce qu'en disent les gens</h2>
+      <p class="note">De vrais avis de l'App Store, cités tels quels (en anglais).</p>
+      <div class="review-grid">
+      <figure class="review"><div class="stars" aria-label="5 out of 5">★★★★★</div>
+        <blockquote>works perfectly as described. great way to log beers easily and see which friends are out!! :)</blockquote><cite>Puccaababas · App Store Canada</cite></figure>
+      <figure class="review"><div class="stars" aria-label="5 out of 5">★★★★★</div>
+        <blockquote>Been loving the app! So much fun interacting with friends on here, the new pictures function makes it even better!</blockquote><cite>trist 1 · App Store Canada</cite></figure>
+      <figure class="review"><div class="stars" aria-label="5 out of 5">★★★★★</div>
+        <blockquote>Tracks the beers super easily and love the new feed option</blockquote><cite>Ottiliestevenson · App Store UK</cite></figure>
+      <figure class="review"><div class="stars" aria-label="5 out of 5">★★★★★</div>
+        <blockquote>best app ever finally a way to connect with my mates</blockquote><cite>BeerStef · App Store Canada</cite></figure>
+      <figure class="review"><div class="stars" aria-label="5 out of 5">★★★★★</div>
+        <blockquote>Great app, super easy to use. Group chat is merking it</blockquote><cite>scraff60 · App Store UK</cite></figure>
+      <figure class="review"><div class="stars" aria-label="5 out of 5">★★★★★</div>
+        <blockquote>this app is awesome! I&#x27;ve shared it with all my friends. Newest update is sick! 🔥🍻</blockquote><cite>jacqattacq99 · App Store Canada</cite></figure>
+      </div>
+    </div>
+
     <div class="faq">
       <h2>Questions</h2>
       <details>
@@ -413,6 +445,11 @@
         <summary>Comment devenir maire d&#x27;un bar ?</summary>
         <p>Note le plus de bières dans un endroit sur les 60 derniers jours, sur au moins deux soirées, et tu en es le maire jusqu&#x27;à ce que quelqu&#x27;un te le prenne.</p>
       </details>
+    </div>
+
+    <div class="more">
+      <h2>Outils et guides gratuits</h2>
+      <div class="links"><a href="/alcohol-units-calculator/">How Many Units in a Pint? Free Alcohol Units Calculator (UK, US, Canada)</a><a href="/price-per-pint-calculator/">Price Per Pint Calculator</a><a href="/round-splitter/">Round Splitter</a><a href="/abv-calculator/">Beer ABV Calculator</a><a href="/price-of-a-pint-in-london/">How Much Is a Pint in London? (2026 Prices)</a><a href="/guides/">All guides</a></div>
     </div>
   </div>
 </section>

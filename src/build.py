@@ -135,6 +135,22 @@ T = {
     },
 }
 
+# Real App Store reviews (UK and Canadian stores, read Oct 2026), quoted as
+# written. Keep them verbatim; don't edit or invent.
+REVIEWS = [
+    ("works perfectly as described. great way to log beers easily and see which friends are out!! :)", "Puccaababas", "Canada"),
+    ("Been loving the app! So much fun interacting with friends on here, the new pictures function makes it even better!", "trist 1", "Canada"),
+    ("Tracks the beers super easily and love the new feed option", "Ottiliestevenson", "UK"),
+    ("best app ever finally a way to connect with my mates", "BeerStef", "Canada"),
+    ("Great app, super easy to use. Group chat is merking it", "scraff60", "UK"),
+    ("this app is awesome! I've shared it with all my friends. Newest update is sick! 🔥🍻", "jacqattacq99", "Canada"),
+]
+REVIEW_TITLE = {"en": "What people say", "fr": "Ce qu'en disent les gens", "es": "Lo que dice la gente"}
+REVIEW_NOTE = {"en": "Real App Store reviews, quoted as written.",
+               "fr": "De vrais avis de l'App Store, cités tels quels (en anglais).",
+               "es": "Reseñas reales del App Store, citadas tal cual (en inglés)."}
+MORE_TITLE = {"en": "Free tools and guides", "fr": "Outils et guides gratuits", "es": "Herramientas y guías gratis"}
+
 EXTRA_CSS = """
   /* ---------- Added by src/build.py ---------- */
   /* width/height attributes are only there to reserve space; keep the ratio. */
@@ -154,6 +170,19 @@ EXTRA_CSS = """
   .faq summary::after { content: "+"; float: right; font-weight: 700; }
   .faq details[open] summary::after { content: "–"; }
   .faq details p { margin-top: 10px; font-size: 16px; font-weight: 500; line-height: 1.55; color: var(--brown-soft); }
+  .reviews { margin-top: 72px; }
+  .reviews h2 { text-align: center; font-size: clamp(26px, 4vw, 38px); font-weight: 700; }
+  .reviews .note { text-align: center; color: var(--brown-soft); font-size: 14px; margin-top: 6px; }
+  .review-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin-top: 22px; }
+  .review { background: var(--cream); border: 2.5px solid var(--brown); border-radius: 18px; padding: 18px; box-shadow: 4px 4px 0 var(--brown); }
+  .review .stars { color: #E8890B; letter-spacing: 2px; font-size: 16px; }
+  .review blockquote { margin: 8px 0 10px; font-size: 16px; line-height: 1.5; font-weight: 500; color: var(--brown); }
+  .review cite { font-style: normal; font-size: 13px; color: var(--brown-soft); font-weight: 600; }
+  .more { margin-top: 64px; text-align: center; }
+  .more h2 { font-size: clamp(22px, 3vw, 30px); }
+  .more .links { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-top: 14px; }
+  .more .links a { background: #fff; border: 2px solid var(--brown); border-radius: 999px; padding: 8px 14px; color: var(--brown); text-decoration: none; font-weight: 600; font-size: 15px; }
+  @media (max-width: 720px) { .review-grid { grid-template-columns: 1fr; } }
   .langs { margin-top: 14px; font-size: 14px; }
   .langs a { margin: 0 8px; }
   .langs .here { margin: 0 8px; opacity: 0.6; }
@@ -211,6 +240,14 @@ def page(lang):
         <p>{esc(a)}</p>
       </details>""" for q, a in t["faq"]
     )
+    reviews = "\n".join(
+        f"""      <figure class="review"><div class="stars" aria-label="5 out of 5">★★★★★</div>
+        <blockquote>{esc(q)}</blockquote><cite>{esc(who)} · App Store {esc(where)}</cite></figure>"""
+        for q, who, where in REVIEWS
+    )
+    more_links = "".join(f'<a href="/{p.slug}/">{esc(p.title.split(":")[0])}</a>'
+                         for p in PUBLISHED if p.kind in ("tool", "city"))
+    more_links += '<a href="/guides/">All guides</a>'
     langs = " ".join(
         f'<span class="here">{m["name"]}</span>' if l == lang else f'<a href="{m["path"]}" hreflang="{l}">{m["name"]}</a>'
         for l, m in LANGS.items()
@@ -299,9 +336,22 @@ def page(lang):
       </div>
     </div>
 
+    <div class="reviews">
+      <h2>{REVIEW_TITLE[lang]}</h2>
+      <p class="note">{REVIEW_NOTE[lang]}</p>
+      <div class="review-grid">
+{reviews}
+      </div>
+    </div>
+
     <div class="faq">
       <h2>{esc(t["faq_title"])}</h2>
 {faqs}
+    </div>
+
+    <div class="more">
+      <h2>{MORE_TITLE[lang]}</h2>
+      <div class="links">{more_links}</div>
     </div>
   </div>
 </section>
@@ -325,7 +375,8 @@ def page(lang):
 
 
 def sitemap():
-    today = date.today().isoformat()
+    # lastmod = the newest page date, so days with nothing new change nothing.
+    today = max([p.updated or p.publish for p in PUBLISHED] + ["2026-10-20"])
     entries = []
     for l, m in LANGS.items():
         alts = "\n".join(
@@ -339,10 +390,63 @@ def sitemap():
   </url>""")
     return ("""<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
-""" + "\n".join(entries) + "\n</urlset>\n")
+""" + "\n".join(entries + [
+        f"  <url>\n    <loc>{SITE}/{p.slug}/</loc>\n    <lastmod>{p.updated or p.publish}</lastmod>\n  </url>"
+        for p in PUBLISHED] + [
+        f"  <url>\n    <loc>{SITE}/{h}/</loc>\n    <lastmod>{today}</lastmod>\n  </url>"
+        for h in HUBS_LIVE]) + "\n</urlset>\n")
+
+
+# ---- Guides, tools and listicles (src/content/), released on their dates ----
+import sys
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from content.pages import all_pages  # noqa: E402
+from content import render  # noqa: E402
+
+# PUBLISH_DATE=2026-11-02 python3 src/build.py previews a future day.
+TODAY = os.environ.get("PUBLISH_DATE") or date.today().isoformat()
+ALL = all_pages()
+PUBLISHED = sorted([p for p in ALL if p.publish <= TODAY], key=lambda p: p.publish, reverse=True)
+HUBS = {
+    "guides": ("Guides: the best apps for beer and nights out", "Honest guides to beer apps, alternatives and nights out, from the team behind ontap.",
+               "Honest, regularly updated guides to beer apps, alternatives and nights out, from the team behind ontap.", ("best", "alt", "page")),
+    "tools": ("Free beer tools and calculators", "Free calculators for units, price per pint, splitting rounds and homebrew ABV.",
+              "Free calculators for nights out and homebrewing. No sign-up, nothing to install.", ("tool",)),
+    "pint-prices": ("How much is a pint? 2026 prices by city", "Real, sourced pint prices for London, New York, Montréal and Toronto.",
+                    "Real pint prices from bar menus and recent reporting, with every source linked.", ("city",)),
+}
+HUBS_LIVE = [h for h, v in HUBS.items() if any(p.kind in v[3] for p in PUBLISHED)]
+
+
+def build_content():
+    live = {p.slug for p in PUBLISHED}
+    for p in ALL:
+        d = os.path.join(ROOT, p.slug)
+        if p.slug in live:
+            os.makedirs(d, exist_ok=True)
+            with open(os.path.join(d, "index.html"), "w") as f:
+                f.write(render.page_html(p, PUBLISHED))
+        elif os.path.exists(os.path.join(d, "index.html")):
+            # Not due yet: make sure it isn't online early.
+            os.remove(os.path.join(d, "index.html"))
+            if not os.listdir(d):
+                os.rmdir(d)
+    for h, (title, desc, intro, kinds) in HUBS.items():
+        if h in HUBS_LIVE:
+            os.makedirs(os.path.join(ROOT, h), exist_ok=True)
+            with open(os.path.join(ROOT, h, "index.html"), "w") as f:
+                f.write(render.hub_html(h, title, desc, intro, [p for p in PUBLISHED if p.kind in kinds]))
+        elif os.path.exists(os.path.join(ROOT, h, "index.html")):
+            os.remove(os.path.join(ROOT, h, "index.html"))
+            if not os.listdir(os.path.join(ROOT, h)):
+                os.rmdir(os.path.join(ROOT, h))
+    with open(os.path.join(ROOT, "published.txt"), "w") as f:
+        f.write("\n".join(f"{SITE}/{p.slug}/" for p in PUBLISHED) + "\n")
+    print(f"{len(PUBLISHED)} of {len(ALL)} content pages live on {TODAY}")
 
 
 if __name__ == "__main__":
+    build_content()
     for lang, meta in LANGS.items():
         out = os.path.join(ROOT, meta["path"].strip("/"), "index.html")
         os.makedirs(os.path.dirname(out), exist_ok=True)
