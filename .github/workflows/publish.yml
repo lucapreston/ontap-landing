@@ -6,6 +6,9 @@ name: Publish scheduled pages
 on:
   schedule:
     - cron: "7 11 * * *"   # 11:07 UTC daily (~noon UK, ~7am Toronto)
+    # GitHub sometimes skips scheduled runs; a second one later in the day
+    # catches up (it changes nothing when the day's pages are already out).
+    - cron: "43 15 * * *"
   workflow_dispatch:
 permissions:
   contents: write
