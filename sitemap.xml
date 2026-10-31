@@ -2,24 +2,32 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://getontap.net/</loc>
-    <lastmod>2026-10-30</lastmod>
+    <lastmod>2026-10-31</lastmod>
     <xhtml:link rel="alternate" hreflang="en" href="https://getontap.net/"/>
     <xhtml:link rel="alternate" hreflang="fr" href="https://getontap.net/fr/"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://getontap.net/es/"/>
   </url>
   <url>
     <loc>https://getontap.net/fr/</loc>
-    <lastmod>2026-10-30</lastmod>
+    <lastmod>2026-10-31</lastmod>
     <xhtml:link rel="alternate" hreflang="en" href="https://getontap.net/"/>
     <xhtml:link rel="alternate" hreflang="fr" href="https://getontap.net/fr/"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://getontap.net/es/"/>
   </url>
   <url>
     <loc>https://getontap.net/es/</loc>
-    <lastmod>2026-10-30</lastmod>
+    <lastmod>2026-10-31</lastmod>
     <xhtml:link rel="alternate" hreflang="en" href="https://getontap.net/"/>
     <xhtml:link rel="alternate" hreflang="fr" href="https://getontap.net/fr/"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://getontap.net/es/"/>
+  </url>
+  <url>
+    <loc>https://getontap.net/best-apps-for-craft-beer-lovers/</loc>
+    <lastmod>2026-10-31</lastmod>
+  </url>
+  <url>
+    <loc>https://getontap.net/last-call/</loc>
+    <lastmod>2026-10-31</lastmod>
   </url>
   <url>
     <loc>https://getontap.net/best-pub-crawl-apps/</loc>
@@ -123,14 +131,14 @@
   </url>
   <url>
     <loc>https://getontap.net/guides/</loc>
-    <lastmod>2026-10-30</lastmod>
+    <lastmod>2026-10-31</lastmod>
   </url>
   <url>
     <loc>https://getontap.net/tools/</loc>
-    <lastmod>2026-10-30</lastmod>
+    <lastmod>2026-10-31</lastmod>
   </url>
   <url>
     <loc>https://getontap.net/pint-prices/</loc>
-    <lastmod>2026-10-30</lastmod>
+    <lastmod>2026-10-31</lastmod>
   </url>
 </urlset>
