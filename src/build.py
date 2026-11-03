@@ -32,7 +32,7 @@ LANGS = {
 
 T = {
     "en": {
-        "title": "ontap: Beer Tracker & Beer Log App for iPhone",
+        "title": "ontap app: Beer Tracker & Beer Log for iPhone",
         "description": "Log a beer in one tap, see which friends are out, earn badges, become Mayor of your local and race your squad. A free beer tracker for iPhone.",
         "og_title": "ontap: Log beers. See who's out.",
         "tagline": "Log beers. See who's out.",
@@ -152,6 +152,7 @@ REVIEW_NOTE = {"en": "Real App Store reviews, quoted as written.",
 MORE_TITLE = {"en": "Free tools and guides", "fr": "Outils et guides gratuits", "es": "Herramientas y guías gratis"}
 
 EXTRA_CSS = """
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
   /* ---------- Added by src/build.py ---------- */
   /* width/height attributes are only there to reserve space; keep the ratio. */
   .phones img, .showcase img { height: auto; }
@@ -208,6 +209,8 @@ def page(lang):
         "@context": "https://schema.org",
         "@type": "MobileApplication",
         "name": "ontap",
+        # "On tap" is an everyday phrase: spell out which ontap this is.
+        "alternateName": ["ontap app", "ontap beer app", "OnTap"],
         "operatingSystem": "iOS",
         "applicationCategory": "LifestyleApplication",
         "description": t["description"],
@@ -216,6 +219,20 @@ def page(lang):
         "image": f"{SITE}/og-image.jpg",
         "inLanguage": lang,
         "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"},
+    }
+    # Who's behind it and where else it lives, so Google ties "ontap" to this app.
+    ld_org = {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "ontap",
+        "alternateName": "ontap app",
+        "url": f"{SITE}/",
+        "logo": f"{SITE}/logo.png",
+        "sameAs": [
+            f"https://apps.apple.com/app/id{APP_ID}",
+            "https://www.instagram.com/ontap.app/",
+            "https://www.tiktok.com/@ontap.app",
+        ],
     }
     ld_faq = {
         "@context": "https://schema.org",
@@ -280,6 +297,7 @@ def page(lang):
 <meta name="twitter:card" content="summary_large_image">
 
 <script type="application/ld+json">{json.dumps(ld_app, ensure_ascii=False)}</script>
+<script type="application/ld+json">{json.dumps(ld_org, ensure_ascii=False)}</script>
 <script type="application/ld+json">{json.dumps(ld_faq, ensure_ascii=False)}</script>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -301,7 +319,7 @@ def page(lang):
 
   <div class="wrap">
     <img class="logo-img" src="/logo.png" alt="ontap" width="784" height="320">
-    <h1 class="tagline">{esc(t["tagline"])}</h1>
+    <h1 class="tagline"><span class="sr-only">ontap: </span>{esc(t["tagline"])}</h1>
     <p class="subline">{esc(t["subline"])}</p>
 
     <a class="cta" href="{store}">
