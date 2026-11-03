@@ -2,24 +2,32 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://getontap.net/</loc>
-    <lastmod>2026-11-01</lastmod>
+    <lastmod>2026-11-03</lastmod>
     <xhtml:link rel="alternate" hreflang="en" href="https://getontap.net/"/>
     <xhtml:link rel="alternate" hreflang="fr" href="https://getontap.net/fr/"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://getontap.net/es/"/>
   </url>
   <url>
     <loc>https://getontap.net/fr/</loc>
-    <lastmod>2026-11-01</lastmod>
+    <lastmod>2026-11-03</lastmod>
     <xhtml:link rel="alternate" hreflang="en" href="https://getontap.net/"/>
     <xhtml:link rel="alternate" hreflang="fr" href="https://getontap.net/fr/"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://getontap.net/es/"/>
   </url>
   <url>
     <loc>https://getontap.net/es/</loc>
-    <lastmod>2026-11-01</lastmod>
+    <lastmod>2026-11-03</lastmod>
     <xhtml:link rel="alternate" hreflang="en" href="https://getontap.net/"/>
     <xhtml:link rel="alternate" hreflang="fr" href="https://getontap.net/fr/"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://getontap.net/es/"/>
+  </url>
+  <url>
+    <loc>https://getontap.net/price-of-a-pint-in-manchester/</loc>
+    <lastmod>2026-11-03</lastmod>
+  </url>
+  <url>
+    <loc>https://getontap.net/cheapest-city-for-a-pint-uk/</loc>
+    <lastmod>2026-11-03</lastmod>
   </url>
   <url>
     <loc>https://getontap.net/snap-map-alternatives/</loc>
@@ -135,14 +143,14 @@
   </url>
   <url>
     <loc>https://getontap.net/guides/</loc>
-    <lastmod>2026-11-01</lastmod>
+    <lastmod>2026-11-03</lastmod>
   </url>
   <url>
     <loc>https://getontap.net/tools/</loc>
-    <lastmod>2026-11-01</lastmod>
+    <lastmod>2026-11-03</lastmod>
   </url>
   <url>
     <loc>https://getontap.net/pint-prices/</loc>
-    <lastmod>2026-11-01</lastmod>
+    <lastmod>2026-11-03</lastmod>
   </url>
 </urlset>

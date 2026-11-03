@@ -199,4 +199,107 @@ TORONTO = Page(
     related=["price-of-a-pint-in-montreal", "price-per-pint-calculator", "best-beer-apps"],
 )
 
-PAGES = [LONDON, NEW_YORK, MONTREAL, TORONTO]
+MANCHESTER = Page(
+    slug="price-of-a-pint-in-manchester",
+    kind="city",
+    keyword="price of a pint in manchester",
+    title="How Much Is a Pint in Manchester? (2026 Prices)",
+    description="A pint in Manchester costs about £6.50 in 2026, and £4 at happy hour. Real prices from 40+ Manchester pubs and bars, plus where to find a cheap pint.",
+    lede="A pint in Manchester typically costs <b>about £6.50</b> in 2026, a little under London and well above the UK average of <b>£4.74</b>. Happy hour brings it down to around <b>£4</b>. Here's what we found across more than 40 Manchester pubs and bars.",
+    publish="2026-11-03",
+    body="""
+<h2>Manchester pint prices at a glance</h2>
+<table>
+<tr><th></th><th>Price</th><th>Source</th></tr>
+<tr><td>UK average, pint of lager</td><td>£4.74</td><td><a href="https://raw.githubusercontent.com/ONSdigital/cpi-items-actions/main/avgprice.csv" rel="nofollow noopener">ONS, Aug 2026</a></td></tr>
+<tr><td>UK average, all pints (pubs)</td><td>£5.34</td><td><a href="https://www.morningadvertiser.co.uk/Article/2026/05/21/average-pint-price-rises-33-to-534-the-morning-advertiser-finds/" rel="nofollow noopener">Morning Advertiser, Apr 2026</a></td></tr>
+<tr><td>Middle of the Manchester menus we checked</td><td><b>£6.50</b></td><td>ontap, 2026 (half paid £5.95–£6.85)</td></tr>
+<tr><td>Typical Manchester happy-hour pint</td><td>£4.00</td><td>ontap, 2026</td></tr>
+<tr><td>Hotel bars (Malmaison, Dakota)</td><td>£7.50</td><td>ontap, 2026</td></tr>
+</table>
+<p>City-centre bars and chains publish their menus, so they make up most of what we found; a back-street local will often be cheaper than the middle figure.</p>
+<h2>Where to find a cheaper pint in Manchester</h2>
+""" + cheap_table([
+        ("Boundary (MMU Students' Union)", "Boundary Beer", "£3.00", "Oct 2026", "https://www.theunionmmu.org/eat-drink-shop/boundary/menu"),
+        ("Hare and Hounds", "Holt's Bitter (cask)", "£3.40", "Mar 2026", "https://wb.camra.org.uk/download/2788"),
+        ("Sinclair's Oyster Bar", "Samuel Smith's, cheapest pint", "£3.50", "May 2026", "https://themanc.com/eats/sinclairs-manchester-beer-garden-pu/"),
+    ], "Students' union bars may need a student or guest card; Samuel Smith's pubs are cash only. ") + """
+<h2>Manchester happy hours</h2>
+""" + cheap_table([
+        ("Electric Shuffle", "Amstel, Mon–Fri 3–7pm", "£4.00", "Sep 2026", "https://www.designmynight.com/manchester/bars/happy-hour-manchester"),
+        ("Junction", "Guinness or Cruzcampo, Tue–Fri", "£4.00", "Aug 2026", "https://confidentials.com/manchester/manchester-restaurant-bar-deals-1"),
+        ("The Jane Eyre", "House pilsner, Tue–Fri 3–6pm", "£4.00", "Aug 2026", "https://confidentials.com/manchester/manchester-restaurant-bar-deals-1"),
+        ("Affleck and Brown", "House lager, noon–7pm", "£4.20", "Aug 2026", "https://confidentials.com/manchester/manchester-restaurant-bar-deals-1"),
+        ("Nell's (NQ, Kampus, MediaCity)", "Pints, Sun–Fri 4–6pm", "£4.50", "Sep 2026", "https://www.designmynight.com/manchester/bars/cheap-drinks-in-manchester"),
+    ], "Happy hours change often, so check before you go. ") + """
+<h2>What drives the price</h2>
+<ul>
+<li><b>The beer:</b> Holt's and Samuel Smith's cask bitter is the cheapest pint in town; premium lager and craft IPA sit at £6.50–£7.50.</li>
+<li><b>The postcode:</b> Deansgate, Spinningfields and hotel bars cost the most; the Northern Quarter has the most happy hours.</li>
+<li><b>The time:</b> plenty of bars knock £2–3 off a pint between 3pm and 7pm.</li>
+</ul>
+<h2>How we got these numbers</h2>
+<p>We collected 81 Manchester pint prices from 42 pubs and bars in 2026, using their own menus, chain menus and recent articles, and recorded where each came from and when. The middle figure uses menu prices only; happy hours are counted separately.</p>
+""",
+    faq=[
+        ("How much is a pint in Manchester?", "About £6.50 in 2026 going by bar and pub menus; half the prices we found were between £5.95 and £6.85."),
+        ("Where's the cheapest pint in Manchester?", "Students' union bars (from £3), Holt's pubs and Samuel Smith's pubs (around £3.50). See the tables above."),
+        ("Is Manchester cheaper than London for a pint?", "A little. The middle of the Manchester menus we checked was £6.50, against about £7 in London."),
+    ],
+    related=["price-of-a-pint-in-london", "cheapest-city-for-a-pint-uk", "price-per-pint-calculator"],
+)
+
+UK_CITIES = [  # (city, median £, prices, venues) from menu prices, 2026
+    ("Plymouth", "6.10", 19, 6), ("Southampton", "6.20", 19, 6), ("Bournemouth", "6.25", 16, 4),
+    ("Glasgow", "6.28", 34, 11), ("Edinburgh", "6.50", 28, 11), ("Leeds", "6.50", 31, 10),
+    ("Liverpool", "6.50", 40, 13), ("Manchester", "6.50", 50, 17), ("Norwich", "6.50", 17, 5),
+    ("Portsmouth", "6.50", 23, 7), ("Sheffield", "6.50", 14, 4), ("Nottingham", "6.65", 24, 6),
+    ("Cardiff", "6.70", 25, 8), ("Birmingham", "6.75", 35, 12), ("York", "6.75", 16, 5),
+    ("Newcastle", "6.95", 15, 5), ("Bath", "7.00", 15, 5), ("London", "7.10", 257, 79),
+]
+CITY_LINKS = {"London": "/price-of-a-pint-in-london/", "Manchester": "/price-of-a-pint-in-manchester/"}
+
+
+def uk_table():
+    head = "<tr><th>City</th><th>Typical pint</th><th>Prices checked</th></tr>"
+    rows = "".join(
+        f'<tr><td>{f"<a href={chr(34)}{CITY_LINKS[c]}{chr(34)}>{c}</a>" if c in CITY_LINKS else c}</td>'
+        f"<td>£{m}</td><td>{n} from {v} venues</td></tr>"
+        for c, m, n, v in UK_CITIES)
+    return f"<table>{head}{rows}</table>"
+
+
+UK = Page(
+    slug="cheapest-city-for-a-pint-uk",
+    kind="city",
+    keyword="cheapest city for a pint uk",
+    title="Cheapest City for a Pint in the UK: 2026 Prices in 18 Cities",
+    description="What a pint costs in 18 UK cities in 2026, from about £6.10 in Plymouth to £7.10 in London, plus Blackpool's £1.60 pints. Real menu prices, every source linked.",
+    lede="Across UK city pubs and bars, a pint costs <b>£6.10 to £7.10</b> in 2026 going by their menus. Plymouth and Southampton came out cheapest of the big cities, London and Bath dearest. Blackpool is in a league of its own, with pints from <b>£1.60</b>.",
+    publish="2026-11-03",
+    body="""
+<h2>Pint prices by UK city</h2>
+""" + uk_table() + """
+<p><small>The middle price on pub and bar menus we found in 2026, cheapest first. City-centre bars and chains publish menus more often than locals, so a back-street pub will often be cheaper.</small></p>
+<h2>The UK average</h2>
+<p>The ONS average for a pint of lager was <b>£4.74</b> in <a href="https://raw.githubusercontent.com/ONSdigital/cpi-items-actions/main/avgprice.csv" rel="nofollow noopener">August 2026</a>, and the Morning Advertiser's pub survey put the average pint at <b>£5.34</b> in <a href="https://www.morningadvertiser.co.uk/Article/2026/05/21/average-pint-price-rises-33-to-534-the-morning-advertiser-finds/" rel="nofollow noopener">April 2026</a>. Both include cheaper pubs outside city centres, which is why they come in below the city figures above.</p>
+<h2>Blackpool: the cheapest pints we found</h2>
+""" + cheap_table([
+        ("The Ardwick", "Foster's, John Smith's or Strongbow", "£1.60", "Oct 2026", "https://ambertaverns.co.uk/pub/the-ardwick/"),
+        ("The Stanley Showbar", "Carlsberg or Smooth, Sun–Thu", "£1.95", "Oct 2026", "https://thestanleyshowbar.co.uk/"),
+        ("Duke", "Carlsberg or Thwaites Smooth", "£2.50", "Oct 2026", "https://dukeblackpool.co.uk/"),
+        ("Garlands", "Carlsberg or Thwaites Smooth", "£2.50", "Oct 2026", "https://garlandsblackpool.co.uk/"),
+    ]) + """
+<p>Blackpool isn't in the table above because most of what we found there is deals like these; its bars with standard menus charge around £6.</p>
+<h2>How we got these numbers</h2>
+<p>We collected more than 1,000 UK pint prices in 2026 from pub and bar menus, chain menus and recent articles, and recorded where each came from and when. The city table uses menu prices for a full pint only, with happy hours left out, and only cities where we found at least 14 prices. We'll keep updating it; ontap users can add what they paid too.</p>
+""",
+    faq=[
+        ("What's the cheapest city in the UK for a pint?", "Of the 18 cities we compared, Plymouth (about £6.10) and Southampton (about £6.20) had the cheapest menus. Blackpool has the cheapest deals, with pints from £1.60."),
+        ("What's the most expensive city in the UK for a pint?", "London, at about £7.10 on the menus we checked, followed by Bath at about £7."),
+        ("What's the average price of a pint in the UK?", "The ONS average for a pint of lager was £4.74 in August 2026; city-centre pubs and bars typically charge £6–£7."),
+    ],
+    related=["price-of-a-pint-in-london", "price-of-a-pint-in-manchester", "price-per-pint-calculator"],
+)
+
+PAGES = [LONDON, NEW_YORK, MONTREAL, TORONTO, MANCHESTER, UK]
