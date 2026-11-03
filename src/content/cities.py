@@ -18,9 +18,10 @@ LONDON = Page(
     kind="city",
     keyword="price of a pint in london",
     title="How Much Is a Pint in London? (2026 Prices)",
-    description="The average pint in London is about £6.50–£6.75 in 2026, against £4.74 for the UK as a whole. Real prices from 63 London pubs, plus where to find a cheap one.",
-    lede="A pint in London typically costs <b>£6.50 to £6.75</b> in 2026. That's well above the UK average of about <b>£4.74</b> for a pint of lager. Here's what we found when we checked 63 London pubs and bars, and where the cheap ones are.",
+    description="A pint in London costs about £7 on pub and bar menus in 2026, against £4.74 for the UK as a whole. Real prices from 195 London pubs and bars, plus cheap ones.",
+    lede="A pint in London typically costs <b>about £7</b> on pub and bar menus in 2026. That's well above the UK average of about <b>£4.74</b> for a pint of lager. Here's what we found when we checked 195 London pubs and bars, and where the cheap ones are.",
     publish="2026-10-20",
+    updated="2026-11-03",
     body="""
 <h2>London pint prices at a glance</h2>
 <table>
@@ -28,8 +29,8 @@ LONDON = Page(
 <tr><td>UK average, pint of lager</td><td>£4.74</td><td><a href="https://raw.githubusercontent.com/ONSdigital/cpi-items-actions/main/avgprice.csv" rel="nofollow noopener">ONS, Aug 2026</a></td></tr>
 <tr><td>UK average, all pints (pubs)</td><td>£5.34</td><td><a href="https://www.morningadvertiser.co.uk/Article/2026/05/21/average-pint-price-rises-33-to-534-the-morning-advertiser-finds/" rel="nofollow noopener">Morning Advertiser, Apr 2026</a></td></tr>
 <tr><td>London average</td><td>£6.55</td><td><a href="https://www.morningadvertiser.co.uk/Article/2026/05/21/average-pint-price-rises-33-to-534-the-morning-advertiser-finds/" rel="nofollow noopener">Morning Advertiser, Apr 2026</a></td></tr>
-<tr><td>Middle of the London menus we checked</td><td><b>£6.75</b></td><td>ontap, Oct 2026 (half paid £5.00–£7.55)</td></tr>
-<tr><td>Typical London happy-hour pint</td><td>£4.93</td><td>ontap, Oct 2026</td></tr>
+<tr><td>Middle of the London menus we checked</td><td><b>£7.10</b></td><td>ontap, 2026 (half paid £6.50–£7.60)</td></tr>
+<tr><td>Typical London happy-hour pint</td><td>£4.95</td><td>ontap, 2026</td></tr>
 </table>
 <p>The gap between the ONS figure and what you pay in a central London pub is real: the ONS average covers the whole country and standard lager, while the London figures include premium lagers, craft and city-centre rents.</p>
 <h2>What drives the price</h2>
@@ -49,15 +50,15 @@ LONDON = Page(
         ("The William Morris", "Guinness", "£4.40", "Aug 2026", "https://www.designmynight.com/london/blog/cheap-pints-of-guinness-in-london"),
     ], "Students' union bars may need a student or guest card. ") + """
 <h2>How we got these numbers</h2>
-<p>In October 2026 we collected 92 pint prices from 63 London pubs and bars, using their own menus and recent articles, and recorded where each came from and when. Happy-hour prices are counted separately. We'll keep updating this page; ontap users will soon be able to add what they paid too.</p>
+<p>We've collected 436 pint prices from 195 London pubs and bars in 2026, using their own menus and recent articles, and recorded where each came from and when. The middle figure uses 257 menu prices for a full pint; happy-hour prices are counted separately. We'll keep updating this page, and ontap users can add what they paid too. See how London compares with <a href="/cheapest-city-for-a-pint-uk/">other UK cities</a>.</p>
 """,
     faq=[
-        ("What's the average price of a pint in London?", "About £6.50–£6.75 in 2026. The Morning Advertiser put London at £6.55 in April 2026; the middle of the London menus we checked in October was £6.75."),
+        ("What's the average price of a pint in London?", "About £6.55–£7.10 in 2026. The Morning Advertiser put London at £6.55 in April 2026; the middle of the London menus we checked was £7.10."),
         ("What's the average price of a pint in the UK?", "The ONS average for a pint of lager was £4.74 in August 2026. The Morning Advertiser's pub survey put the average pint at £5.34 in April 2026."),
         ("Where's the cheapest pint in London?", "Students' union bars (around £3.80), Samuel Smith's pubs and some Wetherspoon pubs are usually cheapest. See the table above for spots we've confirmed."),
         ("Is a £10 pint in London normal?", "Not for a standard lager. £10+ pints exist (rooftops, hotels, strong craft), but most London pubs charge £5.50–£7.50."),
     ],
-    related=["price-per-pint-calculator", "price-of-a-pint-in-new-york", "best-apps-for-finding-pubs-uk"],
+    related=["cheapest-city-for-a-pint-uk", "price-per-pint-calculator", "best-apps-for-finding-pubs-uk"],
 )
 
 NEW_YORK = Page(
